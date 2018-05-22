@@ -39,11 +39,7 @@ export default {
           link: "https://weibo.com/u/2400280851?refer_flag=1001030101_&is_all=1"
         }
       ],
-      srcList: [
-        "http://i4.bvimg.com/638467/d9e4d19ad46cce1d.jpg",
-        "http://i4.bvimg.com/638467/c4a70e929521be6e.jpg",
-        "http://i4.bvimg.com/638467/0c69919d51eb5b2d.jpg"
-      ],
+      srcList: [],
       hasUserInfo: false
     };
   },
