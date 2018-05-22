@@ -19,84 +19,93 @@
 </template>
 
 <script>
-import fadeCycle from '@/components/fadeCycle'
+import fadeCycle from "@/components/fadeCycle";
 
 export default {
-  data () {
+  data() {
     return {
       userInfo: {},
       links: [
         {
-          text: '知乎',
-          link: 'https://www.zhihu.com/people/xie-cang-38-21/activities',
+          text: "知乎",
+          link: "https://www.zhihu.com/people/xie-cang-38-21/activities"
         },
         {
-          text: 'Github',
-          link: 'https://github.com/yozosann',
+          text: "Github",
+          link: "https://github.com/yozosann"
         },
         {
-          text: '微博',
-          link: 'https://weibo.com/u/2400280851?refer_flag=1001030101_&is_all=1',
+          text: "微博",
+          link: "https://weibo.com/u/2400280851?refer_flag=1001030101_&is_all=1"
         }
       ],
       srcList: [
-        'http://i4.bvimg.com/638467/d9e4d19ad46cce1d.jpg',
-        'http://i4.bvimg.com/638467/c4a70e929521be6e.jpg',
-        'http://i4.bvimg.com/638467/0c69919d51eb5b2d.jpg'
+        "http://i4.bvimg.com/638467/d9e4d19ad46cce1d.jpg",
+        "http://i4.bvimg.com/638467/c4a70e929521be6e.jpg",
+        "http://i4.bvimg.com/638467/0c69919d51eb5b2d.jpg"
       ],
       hasUserInfo: false
-    }
+    };
   },
 
   components: {
-    fadeCycle,
+    fadeCycle
   },
 
   methods: {
+    getImgList() {
+      this.$service({path: '/api/getImages'}).then((data) => {
+        this.srcList = data.images.map(item => item.url);
+      }).catch(e => {
+        console.error(e);
+      });
+    },
     setClipboard(item) {
       wx.setClipboardData({
         data: item.link,
         success: function(res) {
-          wx.showModal({  
-            title: '提示',  
-            content: `您已成功复制我的${item.text}链接，可以前往浏览器进行复制`,  
-            success: function(res) {  
-              if (res.confirm) {  
-                console.log('确定')  
-              } else if (res.cancel) {  
-                console.log('取消')  
-              }  
-          }});
+          wx.showModal({
+            title: "提示",
+            content: `您已成功复制我的${item.text}链接，可以前往浏览器进行复制`,
+            success: function(res) {
+              if (res.confirm) {
+                console.log("确定");
+              } else if (res.cancel) {
+                console.log("取消");
+              }
+            }
+          });
         }
-      })
+      });
     },
-    bindViewTap () {
-      const url = '../logs/main'
-      wx.navigateTo({ url })
+    bindViewTap() {
+      const url = "../logs/main";
+      wx.navigateTo({ url });
     },
-    getUserInfo () {
+    getUserInfo() {
       // 调用登录接口
       wx.login({
         success: () => {
           wx.getUserInfo({
-            success: (res) => {
+            success: res => {
               this.hasUserInfo = true;
-              this.userInfo = res.userInfo
+              this.userInfo = res.userInfo;
             }
-          })
+          });
         }
-      })
+      });
     },
-    clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
+    clickHandle(msg, ev) {
+      console.log("clickHandle:", msg, ev);
     }
   },
 
-  created () {
+  created() {
     // 调用应用实例的方法获取全局数据
     this.getUserInfo();
+    this.getImgList();
   }
-}
+};
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -105,28 +114,28 @@ export default {
   margin-top: 2rem;
   padding: 0 1rem;
   box-sizing: border-box;
-  opacity: .9;
+  opacity: 0.9;
   text-align: center;
 
   .avatar {
-    height: .7rem;
-    width: .7rem;
+    height: 0.7rem;
+    width: 0.7rem;
     border-radius: 50%;
-    margin-right: .2rem;
+    margin-right: 0.2rem;
   }
 
   .text {
     color: #505050;
-    font-size: .32rem;
+    font-size: 0.32rem;
 
     &:last-child {
-      margin-left: .2rem;
+      margin-left: 0.2rem;
     }
   }
 }
 
 .title {
-  font-size: .4rem;
+  font-size: 0.4rem;
   font-weight: 400;
   color: #505050;
   margin-top: 20px;
@@ -135,14 +144,14 @@ export default {
 .links {
   position: fixed;
   text-align: center;
-  height: .5rem;
+  height: 0.5rem;
   width: 100%;
   bottom: 20px;
 
   .links-item {
     display: inline-block;
-    margin-right: .4rem;
-    font-size: .32rem;
+    margin-right: 0.4rem;
+    font-size: 0.32rem;
     text-decoration: underline;
     color: #8ba5a7;
 
@@ -151,5 +160,4 @@ export default {
     }
   }
 }
-
 </style>

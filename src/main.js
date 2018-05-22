@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import App from './App'
+import service from './service';
 
 Vue.config.productionTip = false
 App.mpType = 'app'
 
 const app = new Vue(App)
 app.$mount()
+Vue.use(service);
 
 export default {
   // 这个字段走 app.json
