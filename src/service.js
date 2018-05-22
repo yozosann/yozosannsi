@@ -1,7 +1,7 @@
 import { resolve } from "url";
 
 const devApi = 'http://127.0.0.1:9998';
-const vipApi = 'https://yozosann.com/';
+const vipApi = 'https://yozosann.com';
 const requestUrl  = process.env.NODE_ENV === 'development' ? devApi : vipApi;
 
 const install = (Vue, opts={}) => {
